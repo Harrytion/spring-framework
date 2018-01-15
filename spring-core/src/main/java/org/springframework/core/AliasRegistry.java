@@ -22,6 +22,9 @@ package org.springframework.core;
  *
  * @author Juergen Hoeller
  * @since 2.5.2
+ *
+ * 该接口定义了对alias(别名)的简单增删改
+ *
  */
 public interface AliasRegistry {
 
@@ -31,6 +34,7 @@ public interface AliasRegistry {
 	 * @param alias the alias to be registered
 	 * @throws IllegalStateException if the alias is already in use
 	 * and may not be overridden
+	 * 注册别名
 	 */
 	void registerAlias(String name, String alias);
 
@@ -38,6 +42,7 @@ public interface AliasRegistry {
 	 * Remove the specified alias from this registry.
 	 * @param alias the alias to remove
 	 * @throws IllegalStateException if no such alias was found
+	 * 删除别名
 	 */
 	void removeAlias(String alias);
 
@@ -46,6 +51,7 @@ public interface AliasRegistry {
 	 * (as opposed to the name of an actually registered component).
 	 * @param name the name to check
 	 * @return whether the given name is an alias
+	 * 是否为别名
 	 */
 	boolean isAlias(String name);
 
@@ -53,6 +59,7 @@ public interface AliasRegistry {
 	 * Return the aliases for the given name, if defined.
 	 * @param name the name to check for aliases
 	 * @return the aliases, or an empty array if none
+	 * 获取所有的别名
 	 */
 	String[] getAliases(String name);
 

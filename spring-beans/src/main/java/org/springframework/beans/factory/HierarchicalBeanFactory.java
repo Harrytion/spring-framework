@@ -28,6 +28,8 @@ package org.springframework.beans.factory;
  * @author Juergen Hoeller
  * @since 07.07.2003
  * @see org.springframework.beans.factory.config.ConfigurableBeanFactory#setParentBeanFactory
+ *
+ * 继承BeanFactory，并对BeanFactory 提供层级的支持，可通过该BeanFactory获取上级的BeanFactory
  */
 public interface HierarchicalBeanFactory extends BeanFactory {
 

@@ -16,18 +16,12 @@
 
 package org.springframework.beans.factory.annotation
 
-import java.lang.reflect.Method
-
-import org.junit.Before
+import org.junit.Assert.assertNull
+import org.junit.Assert.assertSame
 import org.junit.Test
-
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor
 import org.springframework.beans.factory.support.DefaultListableBeanFactory
 import org.springframework.beans.factory.support.RootBeanDefinition
 import org.springframework.tests.sample.beans.TestBean
-
-import org.junit.Assert.*
 
 /**
  * Tests for Kotlin support with [@Autowired].

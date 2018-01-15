@@ -44,6 +44,9 @@ import org.springframework.core.AliasRegistry;
  * @see org.springframework.context.support.GenericApplicationContext
  * @see org.springframework.beans.factory.xml.XmlBeanDefinitionReader
  * @see PropertiesBeanDefinitionReader
+ * 对别名进行注册进行拓展
+ * 对BeanDefinition提供增删改查操作
+ *
  */
 public interface BeanDefinitionRegistry extends AliasRegistry {
 

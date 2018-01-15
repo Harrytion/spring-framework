@@ -32,6 +32,7 @@ import org.springframework.util.StringValueResolver;
  * {@link org.springframework.beans.factory.support.BeanDefinitionRegistry}
  * implementations.
  *
+ * 主要使用Map（ConcurrentHashMap）作为Alias(别名)缓存，对AliasRegistry接口进行实现
  * @author Juergen Hoeller
  * @since 2.5.2
  */

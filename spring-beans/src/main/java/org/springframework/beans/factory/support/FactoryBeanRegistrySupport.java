@@ -39,6 +39,9 @@ import org.springframework.beans.factory.FactoryBeanNotInitializedException;
  *
  * @author Juergen Hoeller
  * @since 2.5.1
+ *
+ *
+ * 在DefaultSingletonBeanRegistry基础上添加对FactoryBean的特殊处理功能
  */
 public abstract class FactoryBeanRegistrySupport extends DefaultSingletonBeanRegistry {
 

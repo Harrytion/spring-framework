@@ -29,6 +29,9 @@ package org.springframework.beans.factory.config;
  * @see ConfigurableBeanFactory
  * @see org.springframework.beans.factory.support.DefaultSingletonBeanRegistry
  * @see org.springframework.beans.factory.support.AbstractBeanFactory
+ *
+ *
+ * 定义对单例Bean的注册（添加）及获取
  */
 public interface SingletonBeanRegistry {
 
