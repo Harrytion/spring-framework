@@ -542,11 +542,85 @@ public class BeanDefinitionParserDelegate {
 			//look-up
 			/**
 			 * 获取器注入
+			 * 假设一个单例模式的bean A需要引用另外一个非单例模式的bean B，为了在我们每次引用的时候都能拿到最新的bean B，
+			 * 我们可以让bean A通过实现ApplicationContextWare来感知applicationContext（即可以获得容器上下文），
+			 * 从而能在运行时通过ApplicationContext.getBean(String beanName)的方法来获取最新的bean B。
+			 * 但是如果用ApplicationContextAware接口，
+			 * 就让我们与Spring代码耦合了，违背了反转控制原则（IoC，即bean完全由Spring容器管理，我们自己的代码只需要用bean就可以了）。
+			 * 所以Spring为我们提供了方法注入的方式来实现以上的场景。方法注入方式主要是通过<lookup-method/>标签。
+			 *
+			 * // 定义一个水果类
+			 public class Fruit {
+			 public Fruit() {
+			 System.out.println("I got Fruit");
+			 }
+			 }
+
+			 // 苹果
+			 public class Apple extends Fruit {
+			 public Apple() {
+			 System.out.println("I got a fresh apple");
+			 }
+			 }
+
+			 // 香蕉
+			 public class Bananer extends Fruit {
+			 public Bananer () {
+			 System.out.println("I got a  fresh bananer");
+			 }
+			 }
+
+			 // 水果盘，可以拿到水果
+			 public abstract class FruitPlate{
+			 // 抽象方法获取新鲜水果
+			 protected abstract Fruit getFruit();
+			 }
+
+			 <!-- 这是2个非单例模式的bean -->
+			 <bean id="apple" class="cn.com.willchen.test.di.Apple" scope="prototype"/>
+			 <bean id="bananer" class="cn.com.willchen.test.di.Bananer " scope="prototype"/>
+
+			 <bean id="fruitPlate1" class="cn.com.willchen.test.di.FruitPlate">
+			 <lookup-method name="getFruit" bean="apple"/>
+			 </bean>
+			 <bean id="fruitPlate2" class="cn.com.willchen.test.di.FruitPlate">
+			 <lookup-method name="getFruit" bean="bananer"/>
+			 </bean>
+
+
+			 public static void main(String[] args) {
+			 ApplicationContext app = new ClassPathXmlApplicationContext("classpath:resource/applicationContext.xml");
+
+			 FruitPlate fp1= (FruitPlate)app.getBean("fruitPlate1");
+			 FruitPlate fp2 = (FruitPlate)app.getBean("fruitPlate2");
+
+			 fp1.getFruit();
+			 fp2.getFruit();
+			 }
+
+			 测试结果：
+
+			 I got Fruit
+
+			 I got a fresh apple
+
+			 I got Fruit
+
+			 I got a fresh bananer
+
+			 *总结：使用cglib的动态代理
+			 *
+			 *
 			 */
 			parseLookupOverrideSubElements(ele, bd.getMethodOverrides());
 			//replace-method
+			/**
+			 * 将原有方法替换成新的方法
+			 */
 			parseReplacedMethodSubElements(ele, bd.getMethodOverrides());
+
 			//构造参数节点
+
 			parseConstructorArgElements(ele, bd);
 			//property节点
 			parsePropertyElements(ele, bd);
@@ -806,9 +880,13 @@ public class BeanDefinitionParserDelegate {
 	 * Parse a constructor-arg element.
 	 */
 	public void parseConstructorArgElement(Element ele, BeanDefinition bd) {
+		//index
 		String indexAttr = ele.getAttribute(INDEX_ATTRIBUTE);
+		//type
 		String typeAttr = ele.getAttribute(TYPE_ATTRIBUTE);
+		//name
 		String nameAttr = ele.getAttribute(NAME_ATTRIBUTE);
+		//有index属性值
 		if (StringUtils.hasLength(indexAttr)) {
 			try {
 				int index = Integer.parseInt(indexAttr);
@@ -843,6 +921,8 @@ public class BeanDefinitionParserDelegate {
 				error("Attribute 'index' of tag 'constructor-arg' must be an integer", ele);
 			}
 		}
+
+		//没有index属性
 		else {
 			try {
 				this.parseState.push(new ConstructorArgumentEntry());
