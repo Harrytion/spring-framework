@@ -38,6 +38,7 @@ import org.springframework.core.io.Resource;
  * @author Juergen Hoeller
  * @author Colin Sampaleanu
  * @since 04.06.2003
+ * 解析DTD约束文件
  * @see ResourceEntityResolver
  */
 public class BeansDtdResolver implements EntityResolver {

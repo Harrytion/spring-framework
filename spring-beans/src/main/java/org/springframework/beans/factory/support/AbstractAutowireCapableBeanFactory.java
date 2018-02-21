@@ -156,6 +156,11 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 
 	/**
 	 * Create a new AbstractAutowireCapableBeanFactory.
+	 *  ignoreDependencyInterface主要功能是忽略给定接口的自动装配功能,举例：
+	 *  A中有属性B，当Spring在获取A的Bean的时候如果B没有初始化，那么Spring会自动初始化B，但是某些时候B不会被初始化，其中一种情况就是实现BeanNameAware接口
+	 *
+	 *
+	 *
 	 */
 	public AbstractAutowireCapableBeanFactory() {
 		super();

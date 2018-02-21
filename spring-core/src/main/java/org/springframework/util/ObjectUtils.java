@@ -42,7 +42,7 @@ import java.util.Optional;
  */
 public abstract class ObjectUtils {
 
-	private static final int INITIAL_HASH = 7;
+	private static final int  INITIAL_HASH = 7;
 	private static final int MULTIPLIER = 31;
 
 	private static final String EMPTY_STRING = "";

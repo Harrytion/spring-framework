@@ -34,7 +34,7 @@ import org.springframework.core.io.ResourceLoader;
  * @author Costin Leau
  * @since 2.5
  */
-public class CachingMetadataReaderFactory extends SimpleMetadataReaderFactory {
+public class  CachingMetadataReaderFactory extends SimpleMetadataReaderFactory {
 
 	/** Default maximum number of entries for a local MetadataReader cache: 256 */
 	public static final int DEFAULT_CACHE_LIMIT = 256;
