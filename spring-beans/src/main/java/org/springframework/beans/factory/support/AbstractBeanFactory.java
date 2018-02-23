@@ -226,6 +226,18 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 	 * not for actual use
 	 * @return an instance of the bean
 	 * @throws BeansException if the bean could not be created
+	 *
+	 * 1.转换对应的BeanName
+	 * 2.尝试从缓存中加载单例
+	 * 3.Bean的实例化
+	 * 4.原型模式依赖检查
+	 * 5.检测parentBeanFactory
+	 * 6.将存储在xml配置文件中的GernericBeanDefinition转换为RootBeanDefinition，如果指定的BeanName是字Bean的话，
+	 * 则会合并父类的相关属性
+	 * 7.寻找相关的依赖
+	 * 8.针对不同的scope进行bean的创建
+	 * 9.类型转换
+	 *
 	 */
 	@SuppressWarnings("unchecked")
 	protected <T> T doGetBean(
